@@ -1,1 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polynomials &mdash; Interactive Notes | tutoringwithsruthi</title>
+<meta name="description" content="Interactive notes on naming polynomials, like terms, adding and subtracting by tutoringwithsruthi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Dosis:wght@400;500;600;700&family=Bitter:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:  #FFFFFF;
+  --sage-l: #D0D6B3;
+  --sage:   #9BA06A;
+  --slate:  #525B76;
+  --forest: #143109;
+  --bg:     #f5f6ee;
+  --sage-m: #e4e8cc;
+  --fh: 'Young Serif', Georgia, serif;
+  --fp: 'Dosis', 'Trebuchet MS', Arial, sans-serif;
+  --fb: 'Bitter', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  font-family: var(--fp);
+  color: var(--forest);
+  padding: 20px 16px 52px;
+  overflow-x: hidden;
+}
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
 
+/* HEADER */
+.pg-head {
+  background: var(--forest);
+  border-radius: 20px;
+  padding: 28px 32px;
+  text-align: center;
+}
+.pg-head h1 { font-family: var(--fh); font-size: 2rem; color: var(--sage-l); margin-bottom: 5px; }
+.pg-head p  { font-family: var(--fp); font-size: 0.95rem; color: rgba(208,214,179,0.7); }
+
+/* SECTIONS */
+.sec {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 24px 26px;
+  border: 2px solid var(--sage-l);
+  box-shadow: 0 2px 12px rgba(20,49,9,0.06);
+}
+.sec-title {
+  font-family: var(--fh);
+  font-size: 1.25rem;
+  color: var(--forest);
+  margin-bottom: 13px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.sec-num {
+  background: var(--forest);
+  color: var(--sage-l);
+  font-family: var(--fb);
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.sub-title {
+  font-family: var(--fh);
+  font-size: 0.97rem;
+  color: var(--slate);
+  margin: 16px 0 7px;
+}
+.body-text {
+  font-family: var(--fp);
+  font-size: 0.94rem;
+  color: var(--forest);
+  margin-bottom: 10px;
+  line-height: 1.65;
+}
+
+/* BOXES */
+.note {
+  background: var(--sage-m);
+  border-left: 5px solid var(--sage);
+  border-radius: 0 12px 12px 0;
+  padding: 10px 15px;
+  font-family: var(--fp);
+  font-size: 0.89rem;
+  color: var(--slate);
+  margin: 7px 0;
+  line-height: 1.6;
+}
+.warn {
+  background: #fff8e4;
+  border: 2px solid #d4a017;
+  border-radius: 13px;
+  padding: 11px 15px;
+  font-family: var(--fp);
+  font-size: 0.89rem;
+  color: #5a3500;
+  margin: 10px 0;
+  line-height: 1.7;
+}
+.warn strong { color: #9a5500; }
+.formula {
+  background: var(--sage-m);
+  border: 2px solid var(--sage);
+  border-radius: 13px;
+  padding: 12px 18px;
+  font-family: var(--fb);
+  font-size: 1rem;
+  color: var(--forest);
+  margin: 10px 0;
+  text-align: center;
+  line-height: 1.9;
+}
+.divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--sage-l), transparent);
+  border-radius: 3px;
+  margin: 4px 0 13px;
+}
+
+/* GRID */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 580px) { .two { grid-template-columns: 1fr; } }
+
+/* TABLES */
+.tbl {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 13px;
+  overflow: hidden;
+  border: 2px solid var(--sage-l);
+  margin: 10px 0;
+  font-family: var(--fp);
+  font-size: 0.88rem;
+}
+.tbl th {
+  background: var(--forest);
+  color: var(--sage-l);
+  font-family: var(--fb);
+  font-weight: 700;
+  padding: 9px 13px;
+  text-align: left;
+}
+.tbl td { padding: 8px 13px; color: var(--forest); border-top: 1px solid var(--sage-l); }
+.tbl tr:nth-child(even) td { background: var(--bg); }
+.tbl tr:nth-child(odd)  td { background: var(--white); }
+.badge {
+  display: inline-block;
+  padding: 2px 11px;
+  border-radius: 20px;
+  font-family: var(--fb);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.b-mono { background: var(--sage-m);  color: var(--forest); border: 1.5px solid var(--sage); }
+.b-bi   { background: #dae8f8; color: #1a3f70;  border: 1.5px solid #7aacd8; }
+.b-tri  { background: #ead8f8; color: #38106a;  border: 1.5px solid #a87ad8; }
+.b-poly { background: #f8e8d0; color: #552800;  border: 1.5px solid #d8a060; }
+.b-deg  { background: var(--forest); color: var(--sage-l); }
+
+/* ANATOMY */
+.anatomy-wrap {
+  background: var(--bg);
+  border-radius: 14px;
+  padding: 20px 14px 18px;
+  text-align: center;
+  margin: 12px 0;
+}
+.anatomy-sub { font-family: var(--fp); font-size: 0.84rem; color: var(--slate); margin-bottom: 12px; }
+.anatomy-svg { max-width: 500px; width: 100%; display: block; margin: 0 auto 14px; }
+.pills { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 4px; }
+.pill  { padding: 6px 13px; border-radius: 30px; font-family: var(--fp); font-size: 0.8rem; font-weight: 600; }
+.pill-c { background: var(--slate);  color: var(--white); }
+.pill-v { background: var(--sage);   color: var(--forest); }
+.pill-e { background: var(--forest); color: var(--sage-l); }
+.pill-k { background: var(--sage-m); color: var(--forest); border: 2px solid var(--sage); }
+
+/* LIKE TERMS */
+.lt-row { display: flex; gap: 7px; flex-wrap: wrap; margin: 5px 0; align-items: center; }
+.lt {
+  padding: 8px 14px;
+  border-radius: 11px;
+  font-family: var(--fb);
+  font-size: 1.05rem;
+  font-weight: 700;
+  border: 2.5px solid;
+}
+.lt-a { background: #daeeff; color: #1a3f70; border-color: #5a9ad8; }
+.lt-b { background: #ead8f8; color: #38106a; border-color: #9a60c8; }
+.lt-c { background: #d4f0d0; color: #1a4a1a; border-color: #50a060; }
+.lt-note { font-family: var(--fp); font-size: 0.78rem; color: var(--slate); }
+.hl-a { color: #1a4e98; font-weight: 700; }
+.hl-b { color: #680d90; font-weight: 700; }
+.hl-c { color: #7a4000; font-weight: 700; }
+.flip { color: #c0000a; font-weight: 700; }
+
+/* STEPS */
+.steps { display: flex; flex-direction: column; gap: 7px; margin: 11px 0; }
+.step {
+  display: flex; gap: 11px; align-items: flex-start;
+  background: var(--bg); border-radius: 11px; padding: 10px 13px;
+}
+.step-n {
+  background: var(--forest); color: var(--sage-l);
+  font-family: var(--fb); font-weight: 700;
+  width: 26px; height: 26px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; font-size: 0.8rem;
+}
+.step-t { font-family: var(--fp); font-size: 0.9rem; color: var(--forest); line-height: 1.5; }
+.step-t b { color: var(--slate); }
+
+/* WORKED EXAMPLES */
+.ex-wrap { background: var(--bg); border-radius: 13px; padding: 15px 17px; margin: 10px 0; }
+.ex-label {
+  font-family: var(--fb); font-size: 0.72rem; font-weight: 700;
+  color: var(--sage); text-transform: uppercase; letter-spacing: .6px; margin-bottom: 8px;
+}
+.worked { display: flex; flex-direction: column; gap: 5px; }
+.wl {
+  display: flex; align-items: center; gap: 10px;
+  padding: 8px 13px; border-radius: 10px;
+  font-family: var(--fb); font-size: 0.92rem; line-height: 1.5;
+}
+.wl-lbl {
+  font-family: var(--fp); font-size: 0.72rem; font-weight: 700;
+  color: var(--sage); width: 105px; flex-shrink: 0;
+  text-transform: uppercase; letter-spacing: .3px;
+}
+.wl-s1  { background: #daeeff; }
+.wl-s2  { background: #ead8f8; }
+.wl-s3  { background: #d4f0d0; }
+.wl-ans { background: var(--sage-m); border: 2px solid var(--sage); font-weight: 700; }
+
+/* QUIZ */
+.quiz-wrap { display: flex; flex-direction: column; gap: 10px; }
+.qcard {
+  background: var(--bg);
+  border: 2px solid var(--sage-l);
+  border-radius: 14px;
+  padding: 16px 18px;
+}
+.q-tag {
+  font-family: var(--fb); font-size: 0.72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .6px; color: var(--sage); margin-bottom: 5px;
+}
+.q-expr { font-family: var(--fb); font-size: 1.45rem; color: var(--forest); margin-bottom: 11px; }
+.q-opts { display: flex; gap: 7px; flex-wrap: wrap; }
+.q-opt {
+  padding: 7px 17px; border-radius: 30px;
+  font-family: var(--fp); font-size: 0.86rem; font-weight: 600;
+  border: 2px solid var(--sage-l); background: var(--white); color: var(--forest);
+  cursor: pointer; transition: all .18s;
+}
+.q-opt:hover    { border-color: var(--slate); background: var(--white); }
+.q-opt.correct  { background: #d4f0d0; border-color: #50a060; color: #1a4a1a; }
+.q-opt.wrong    { background: #f0d4d4; border-color: #c06060; color: #5a1010; }
+.q-fb { margin-top: 9px; padding: 8px 12px; border-radius: 10px; font-family: var(--fp); font-size: 0.84rem; display: none; line-height: 1.5; }
+.q-fb.show { display: block; }
+.q-fb.ok { background: #d4f0d0; color: #1a4a1a; }
+.q-fb.no { background: #f0d4d4; color: #5a1010; }
+
+/* DOMINO */
+.domino-instr {
+  background: var(--bg); border-radius: 10px; padding: 10px 13px;
+  font-family: var(--fp); font-size: 0.84rem; color: var(--slate); margin-bottom: 12px; line-height: 1.5;
+}
+.domino-grid {
+  display: grid; grid-template-columns: 1fr 28px 1fr;
+  gap: 7px 8px; align-items: center;
+}
+.d-head { font-family: var(--fb); font-size: 0.76rem; font-weight: 700; color: var(--slate); text-align: center; padding: 3px 0; }
+.d-arrow { text-align: center; color: var(--sage); font-size: 1rem; }
+.dtile {
+  padding: 9px 14px; border-radius: 11px;
+  border: 2.5px solid var(--sage-l);
+  font-family: var(--fb); font-size: 1rem; font-weight: 700;
+  text-align: center; cursor: pointer; transition: all .18s;
+  background: var(--sage-m); color: var(--forest); user-select: none;
+}
+.dtile:hover   { transform: scale(1.04); box-shadow: 0 3px 10px rgba(20,49,9,.12); }
+.dtile.sel     { border-color: var(--slate); box-shadow: 0 0 0 3px rgba(82,91,118,.25); }
+.dtile.matched { border-color: #50a060; background: #d4f0d0; color: #1a4a1a; opacity: .65; cursor: default; transform: none; }
+.dtile.bad     { border-color: #c06060; animation: shk .35s ease; }
+@keyframes shk { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+
+/* SHARED */
+.reset-btn {
+  padding: 8px 20px; border-radius: 30px;
+  font-family: var(--fp); font-size: 0.86rem; font-weight: 700;
+  background: var(--forest); color: var(--sage-l);
+  border: none; cursor: pointer; margin-top: 12px; transition: opacity .2s;
+}
+.reset-btn:hover { opacity: .82; }
+.score-txt { font-family: var(--fp); font-size: 0.86rem; font-weight: 700; color: var(--slate); margin-top: 7px; }
+
+/* FOOTER */
+.footer {
+  text-align: center; font-family: var(--fb); font-size: 0.74rem;
+  color: var(--sage); font-style: italic; margin-top: 6px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="pg-head">
+  <h1>Polynomials</h1>
+  <p>Naming &middot; Parts of a Term &middot; Like Terms &middot; Adding &amp; Subtracting</p>
+</div>
+
+<!-- SECTION 1: PARTS OF A TERM -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">1</span> Parts of a Polynomial Term</div>
+  <p class="body-text">Every term in a polynomial is made of up to three parts. Understanding each part is the foundation of everything else.</p>
+
+  <div class="anatomy-wrap">
+    <div class="anatomy-sub">Here is <strong>3x&sup2;</strong> broken down into its three parts:</div>
+    <svg class="anatomy-svg" viewBox="0 0 540 210" xmlns="http://www.w3.org/2000/svg">
+      <rect x="10" y="8" width="520" height="196" rx="14" fill="#ffffff" stroke="#D0D6B3" stroke-width="1.5"/>
+      <text x="148" y="82" font-size="64" font-family="Bitter, Georgia, serif" fill="#525B76" font-weight="700" text-anchor="middle">3</text>
+      <text x="222" y="82" font-size="64" font-family="Bitter, Georgia, serif" fill="#9BA06A" font-weight="700" text-anchor="middle">x</text>
+      <text x="264" y="44" font-size="36" font-family="Bitter, Georgia, serif" fill="#143109" font-weight="700" text-anchor="middle">2</text>
+      <line x1="148" y1="88" x2="100" y2="138" stroke="#525B76" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.7"/>
+      <line x1="222" y1="88" x2="272" y2="138" stroke="#9BA06A" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.7"/>
+      <line x1="264" y1="50" x2="416" y2="138" stroke="#143109" stroke-width="1.8" stroke-dasharray="5,3" opacity="0.7"/>
+      <rect x="18"  y="138" width="160" height="58" rx="12" fill="#525B76"/>
+      <text x="98"  y="160" font-size="12" font-family="Dosis, Arial, sans-serif" fill="#D0D6B3" text-anchor="middle" font-weight="700">COEFFICIENT</text>
+      <text x="98"  y="178" font-size="11" font-family="Dosis, Arial, sans-serif" fill="rgba(255,255,255,0.75)" text-anchor="middle">= 3 (number in front)</text>
+      <rect x="192" y="138" width="160" height="58" rx="12" fill="#9BA06A"/>
+      <text x="272" y="160" font-size="12" font-family="Dosis, Arial, sans-serif" fill="#143109" text-anchor="middle" font-weight="700">VARIABLE</text>
+      <text x="272" y="178" font-size="11" font-family="Dosis, Arial, sans-serif" fill="rgba(20,49,9,0.75)" text-anchor="middle">= x (the letter)</text>
+      <rect x="366" y="138" width="160" height="58" rx="12" fill="#143109"/>
+      <text x="446" y="160" font-size="12" font-family="Dosis, Arial, sans-serif" fill="#D0D6B3" text-anchor="middle" font-weight="700">EXPONENT</text>
+      <text x="446" y="178" font-size="11" font-family="Dosis, Arial, sans-serif" fill="rgba(208,214,179,0.75)" text-anchor="middle">= 2 (the power)</text>
+      <circle cx="148" cy="88" r="4" fill="#525B76" opacity="0.6"/>
+      <circle cx="222" cy="88" r="4" fill="#9BA06A" opacity="0.6"/>
+      <circle cx="264" cy="50" r="4" fill="#143109" opacity="0.6"/>
+    </svg>
+
+    <div style="background:var(--sage-m);border:2px solid var(--sage);border-radius:13px;padding:10px 17px;display:inline-block;margin-bottom:13px;font-family:var(--fp);font-size:0.86rem;color:var(--forest);line-height:1.6;">
+      <strong>What about a constant?</strong> &nbsp;A term like <strong style="font-family:var(--fb);">7</strong> has no variable &mdash; its exponent is 0, so x&#x2070; = 1 and the whole term is just 7.
+    </div>
+    <div class="pills">
+      <div class="pill pill-c">Coefficient &mdash; number in front</div>
+      <div class="pill pill-v">Variable &mdash; the letter</div>
+      <div class="pill pill-e">Exponent &mdash; the power</div>
+      <div class="pill pill-k">Constant &mdash; no variable at all</div>
+    </div>
+  </div>
+
+  <div class="two" style="margin-top:14px;">
+    <div>
+      <div class="sub-title">Terms Broken Down</div>
+      <table class="tbl">
+        <tr><th>Term</th><th>Coefficient</th><th>Variable</th><th>Exponent</th></tr>
+        <tr><td><strong>5x&sup3;</strong></td><td>5</td><td>x</td><td>3</td></tr>
+        <tr><td><strong>&minus;2x&sup2;</strong></td><td>&minus;2</td><td>x</td><td>2</td></tr>
+        <tr><td><strong>7x</strong></td><td>7</td><td>x</td><td>1</td></tr>
+        <tr><td><strong>x&sup2;</strong></td><td>1 (hidden)</td><td>x</td><td>2</td></tr>
+        <tr><td><strong>4</strong></td><td>4</td><td>&mdash;</td><td>0 (constant)</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="sub-title">Key Definitions</div>
+      <div class="note"><strong>Constant:</strong> No variable. 7 = 7&middot;x&#x2070; = 7&middot;1 = 7. It never changes.</div>
+      <div class="note"><strong>Variable:</strong> The unknown letter. Could be x, y, n, etc.</div>
+      <div class="note"><strong>Coefficient:</strong> The number in front. If none shows, the coefficient is <em>1</em> (hidden).</div>
+      <div class="note"><strong>Degree:</strong> The <em>highest</em> exponent in the polynomial. In 3x&sup2; + 5x the degree is 2.</div>
+      <div class="note"><strong>Leading Coefficient:</strong> The coefficient of the highest-degree term. In <strong style="font-family:var(--fb);">5x&sup3; + 2x + 1</strong>, the leading coefficient is <strong>5</strong>.</div>
+      <div class="note"><strong>x&#x2070; = 1:</strong> Any variable to the power of 0 equals 1, which is why constants have degree 0.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 2: NAMING -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">2</span> Naming Polynomials</div>
+  <p class="body-text">We name polynomials in <strong>two ways</strong> &mdash; by <em>number of terms</em> and by <em>degree</em>. A full name uses both.</p>
+  <div class="divider"></div>
+  <div class="two">
+    <div>
+      <div class="sub-title">By Number of Terms</div>
+      <table class="tbl">
+        <tr><th># Terms</th><th>Name</th><th>Example</th></tr>
+        <tr><td>1</td><td><span class="badge b-mono">Monomial</span></td><td>4x&sup2;</td></tr>
+        <tr><td>2</td><td><span class="badge b-bi">Binomial</span></td><td>3x + 7</td></tr>
+        <tr><td>3</td><td><span class="badge b-tri">Trinomial</span></td><td>x&sup2; + 5x + 6</td></tr>
+        <tr><td>4+</td><td><span class="badge b-poly">Polynomial</span></td><td>x&sup3; + 2x&sup2; + x + 1</td></tr>
+      </table>
+      <div class="note">Count groups separated by <strong>+</strong> or <strong>&minus;</strong> to find the number of terms.</div>
+    </div>
+    <div>
+      <div class="sub-title">By Degree (Highest Exponent)</div>
+      <table class="tbl">
+        <tr><th>Degree</th><th>Name</th><th>Example</th></tr>
+        <tr><td>0</td><td><span class="badge b-deg">Constant</span></td><td>9</td></tr>
+        <tr><td>1</td><td><span class="badge b-deg">Linear</span></td><td>3x + 2</td></tr>
+        <tr><td>2</td><td><span class="badge b-deg">Quadratic</span></td><td>x&sup2; + x</td></tr>
+        <tr><td>3</td><td><span class="badge b-deg">Cubic</span></td><td>x&sup3; &minus; 1</td></tr>
+        <tr><td>4</td><td><span class="badge b-deg">Quartic</span></td><td>x&#x2074; + x&sup2;</td></tr>
+        <tr><td>5+</td><td><span class="badge b-deg">n<sup>th</sup> degree</span></td><td>x&#x2075; + 2x</td></tr>
+      </table>
+      <div class="note">Find the term with the biggest exponent &mdash; that is the degree.</div>
+    </div>
+  </div>
+  <div class="formula" style="margin-top:13px;">
+    3x&sup3; + 2x&#x2074; + x&sup2; + 2x &nbsp;&rarr;&nbsp; highest exponent = <strong>4</strong> (Quartic) &nbsp;|&nbsp; 4 terms &rarr; <strong>Polynomial</strong><br>
+    Full name: <strong>Quartic Polynomial</strong>
+  </div>
+</div>
+
+<!-- SECTION 3: NAMING QUIZ -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">3</span> Select the Right Name</div>
+  <p class="body-text">Click the correct name for each expression. You will get instant feedback!</p>
+  <div class="quiz-wrap" id="quizWrap"></div>
+  <button class="reset-btn" id="qReset">Reset Quiz</button>
+  <div class="score-txt" id="qScore"></div>
+</div>
+
+<!-- SECTION 4: LIKE TERMS -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">4</span> Identifying Like Terms</div>
+  <p class="body-text"><strong>Like terms</strong> have the exact same variable AND the exact same exponent. Only like terms can be combined.</p>
+  <div class="formula">Like terms = same variable <em>and</em> same exponent</div>
+
+  <div class="sub-title">Colour-coded Example</div>
+  <div style="background:var(--bg);border-radius:13px;padding:15px 17px;margin:10px 0;">
+    <div style="font-family:var(--fb);font-size:1.25rem;margin-bottom:12px;">
+      <span class="hl-a">3x&sup2;</span> + <span class="hl-b">5x</span> + <span class="hl-c">2</span> + <span class="hl-a">x&sup2;</span> &minus; <span class="hl-b">3x</span> + <span class="hl-c">7</span>
+    </div>
+    <div class="lt-row">
+      <div class="lt lt-a">3x&sup2;</div><div class="lt lt-a">x&sup2;</div>
+      <span class="lt-note">&larr; like terms (both x&sup2;)</span>
+    </div>
+    <div class="lt-row">
+      <div class="lt lt-b">5x</div><div class="lt lt-b">&minus;3x</div>
+      <span class="lt-note">&larr; like terms (both x)</span>
+    </div>
+    <div class="lt-row">
+      <div class="lt lt-c">2</div><div class="lt lt-c">7</div>
+      <span class="lt-note">&larr; like terms (both constants)</span>
+    </div>
+  </div>
+
+  <div class="warn">
+    <strong>NOT like terms:</strong><br>
+    &bull; 3x&sup2; and 3x &mdash; same variable but <em>different exponents</em> (2 &ne; 1)<br>
+    &bull; 5x and 5y &mdash; <em>different variables</em><br>
+    &bull; 4x&sup2;y and 4x&sup2; &mdash; different variable combination
+  </div>
+
+  <div class="sub-title">Quick Reference</div>
+  <table class="tbl">
+    <tr><th>Term A</th><th>Term B</th><th>Like Terms?</th><th>Reason</th></tr>
+    <tr><td>4x&sup2;</td><td>&minus;7x&sup2;</td><td>&#x2705; Yes</td><td>Same variable (x), same exponent (2)</td></tr>
+    <tr><td>3x</td><td>5x</td><td>&#x2705; Yes</td><td>Same variable (x), same exponent (1)</td></tr>
+    <tr><td>8</td><td>&minus;3</td><td>&#x2705; Yes</td><td>Both constants (degree 0)</td></tr>
+    <tr><td>2x&sup2;</td><td>2x</td><td>&#x274C; No</td><td>Same variable but exponents differ (2 &ne; 1)</td></tr>
+    <tr><td>5x</td><td>5y</td><td>&#x274C; No</td><td>Different variables (x &ne; y)</td></tr>
+    <tr><td>6x&sup2;y</td><td>6x&sup2;</td><td>&#x274C; No</td><td>One has two variables, one has one</td></tr>
+  </table>
+</div>
+
+<!-- SECTION 5: DOMINO MATCH -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">5</span> Like Terms Domino Match</div>
+  <p class="body-text">Click a term to select it, then click its matching like term. Same variable AND same exponent = a match!</p>
+  <div class="domino-instr">
+    <strong>How to play:</strong> Click any tile to highlight it, then click its matching like term. Correct pairs turn green. Wrong pairs flash red.
+  </div>
+  <div id="dominoGame"></div>
+</div>
+
+<!-- SECTION 6: ADDING -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">6</span> Adding Polynomials</div>
+  <p class="body-text">To add polynomials: <strong>find like terms &rarr; group them &rarr; add the coefficients</strong>. The variable and exponent stay the same.</p>
+  <div class="steps">
+    <div class="step"><div class="step-n">1</div><div class="step-t"><b>Find like terms</b> &mdash; same variable and same exponent</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-t"><b>Group like terms</b> &mdash; put them together in parentheses</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-t"><b>Add the coefficients</b> &mdash; keep the variable and exponent unchanged</div></div>
+  </div>
+  <div class="ex-wrap">
+    <div class="ex-label">Example &mdash; Addition</div>
+    <div class="worked">
+      <div class="wl"><span class="wl-lbl">Problem</span>(3x&sup2; + 5x + 2) + (x&sup2; &minus; 3x + 7)</div>
+      <div class="wl wl-s1"><span class="wl-lbl">Step 1: Find</span><span class="hl-a">3x&sup2; and x&sup2;</span>&nbsp;|&nbsp;<span class="hl-b">5x and &minus;3x</span>&nbsp;|&nbsp;<span class="hl-c">2 and 7</span></div>
+      <div class="wl wl-s2"><span class="wl-lbl">Step 2: Group</span>(<span class="hl-a">3x&sup2; + x&sup2;</span>) + (<span class="hl-b">5x &minus; 3x</span>) + (<span class="hl-c">2 + 7</span>)</div>
+      <div class="wl wl-s3"><span class="wl-lbl">Step 3: Add</span><span class="hl-a">4x&sup2;</span> + <span class="hl-b">2x</span> + <span class="hl-c">9</span></div>
+      <div class="wl wl-ans"><span class="wl-lbl">Answer</span>4x&sup2; + 2x + 9</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7: SUBTRACTING -->
+<div class="sec">
+  <div class="sec-title"><span class="sec-num">7</span> Subtracting Polynomials</div>
+  <p class="body-text">Subtraction is the same as addition <em>after</em> you distribute the negative sign. Every sign in the second polynomial flips.</p>
+  <div class="warn">
+    <strong>Most common mistake &mdash; forgetting to flip ALL signs:</strong><br>
+    &minus;(2x&sup2; &minus; 4x + 6) = <strong class="flip">&minus;2x&sup2; + 4x &minus; 6</strong> &nbsp;&#x2705; every sign flips<br>
+    <span style="text-decoration:line-through;color:#aaa;">&minus;(2x&sup2; &minus; 4x + 6) = &minus;2x&sup2; &minus; 4x + 6</span> &nbsp;&#x274C; wrong
+  </div>
+  <div class="steps">
+    <div class="step"><div class="step-n">1</div><div class="step-t"><b>Distribute the &minus;</b> to every term in the second polynomial &mdash; flip every sign</div></div>
+    <div class="step"><div class="step-n">2</div><div class="step-t"><b>Find like terms</b> in the new combined expression</div></div>
+    <div class="step"><div class="step-n">3</div><div class="step-t"><b>Group and combine</b> exactly like addition</div></div>
+  </div>
+  <div class="ex-wrap">
+    <div class="ex-label">Example &mdash; Subtraction</div>
+    <div class="worked">
+      <div class="wl"><span class="wl-lbl">Problem</span>(5x&sup2; + 3x &minus; 1) &minus; (2x&sup2; &minus; 4x + 6)</div>
+      <div class="wl wl-s1"><span class="wl-lbl">Distribute &minus;</span>5x&sup2; + 3x &minus; 1 <span class="flip">&nbsp;&minus; 2x&sup2; + 4x &minus; 6</span></div>
+      <div class="wl wl-s2"><span class="wl-lbl">Step 2: Group</span>(<span class="hl-a">5x&sup2; &minus; 2x&sup2;</span>) + (<span class="hl-b">3x + 4x</span>) + (<span class="hl-c">&minus;1 &minus; 6</span>)</div>
+      <div class="wl wl-s3"><span class="wl-lbl">Step 3: Add</span><span class="hl-a">3x&sup2;</span> + <span class="hl-b">7x</span> + <span class="hl-c">(&minus;7)</span></div>
+      <div class="wl wl-ans"><span class="wl-lbl">Answer</span>3x&sup2; + 7x &minus; 7</div>
+    </div>
+  </div>
+  <div class="two" style="margin-top:10px;">
+    <div class="formula">
+      &minus;(ax&sup2; + bx + c)<br>= &minus;ax&sup2; &minus; bx &minus; c<br>
+      <span style="font-size:.78rem;color:var(--slate);">every sign flips</span>
+    </div>
+    <div class="formula">
+      &minus;(ax&sup2; &minus; bx &minus; c)<br>= &minus;ax&sup2; + bx + c<br>
+      <span style="font-size:.78rem;color:var(--slate);">negative &times; negative = positive</span>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">&copy; tutoringwithsruthi &middot; All materials for personal educational use only. Please do not reproduce or distribute without permission.</div>
+
+</div>
+
+<script>
+var QD = [
+  { expr:"5x\u00B2", tag:"by terms", correct:"Monomial", opts:["Monomial","Binomial","Trinomial","Polynomial"], msg:"1 term \u2192 Monomial. Degree 2 \u2192 Quadratic." },
+  { expr:"3x + 7", tag:"by terms", correct:"Binomial", opts:["Monomial","Binomial","Trinomial","Polynomial"], msg:"2 terms \u2192 Binomial. Degree 1 \u2192 Linear." },
+  { expr:"x\u00B2 + 5x + 6", tag:"by terms", correct:"Trinomial", opts:["Monomial","Binomial","Trinomial","Polynomial"], msg:"3 terms \u2192 Trinomial. Degree 2 \u2192 Quadratic." },
+  { expr:"x\u00B3 + 2x\u00B2 + x + 1", tag:"by terms", correct:"Polynomial (4 terms)", opts:["Binomial","Trinomial","Polynomial (4 terms)","Monomial"], msg:"4 terms \u2192 Polynomial. Degree 3 \u2192 Cubic." },
+  { expr:"2x\u2074 + x\u00B3 + 5x", tag:"by degree", correct:"Quartic", opts:["Linear","Quadratic","Cubic","Quartic"], msg:"Highest exponent is 4 \u2192 Quartic. 3 terms \u2192 Trinomial." },
+  { expr:"6x", tag:"by degree", correct:"Linear", opts:["Constant","Linear","Quadratic","Cubic"], msg:"Exponent is 1 \u2192 Linear. 1 term \u2192 Monomial." },
+  { expr:"9", tag:"by degree", correct:"Constant", opts:["Constant","Linear","Quadratic","Monomial"], msg:"No variable \u2192 degree 0 \u2192 Constant. Also a Monomial." },
+  { expr:"4x\u00B3 \u2212 2x", tag:"by degree", correct:"Cubic", opts:["Linear","Quadratic","Cubic","Quartic"], msg:"Highest exponent is 3 \u2192 Cubic. 2 terms \u2192 Binomial." }
+];
+
+var answered = [];
+var score = 0;
+
+function buildQuiz() {
+  var wrap = document.getElementById('quizWrap');
+  wrap.innerHTML = '';
+  answered = [];
+  score = 0;
+  document.getElementById('qScore').textContent = '';
+  for (var i = 0; i < QD.length; i++) {
+    answered.push(false);
+    var q = QD[i];
+    var card = document.createElement('div');
+    card.className = 'qcard';
+    var tag = document.createElement('div');
+    tag.className = 'q-tag';
+    tag.textContent = 'Q' + (i + 1) + ' \u2014 Name ' + q.tag;
+    var expr = document.createElement('div');
+    expr.className = 'q-expr';
+    expr.textContent = q.expr;
+    var opts = document.createElement('div');
+    opts.className = 'q-opts';
+    opts.id = 'o' + i;
+    var fb = document.createElement('div');
+    fb.className = 'q-fb';
+    fb.id = 'f' + i;
+    card.appendChild(tag);
+    card.appendChild(expr);
+    card.appendChild(opts);
+    card.appendChild(fb);
+    wrap.appendChild(card);
+    (function(qi, qdata, optDiv) {
+      for (var j = 0; j < qdata.opts.length; j++) {
+        var btn = document.createElement('button');
+        btn.className = 'q-opt';
+        btn.textContent = qdata.opts[j];
+        btn.addEventListener('click', (function(opt, b) {
+          return function() { answerQ(qi, opt, b, optDiv); };
+        })(qdata.opts[j], btn));
+        optDiv.appendChild(btn);
+      }
+    })(i, q, opts);
+  }
+}
+
+function answerQ(i, ans, btn, od) {
+  if (answered[i]) return;
+  answered[i] = true;
+  var q = QD[i];
+  var fb = document.getElementById('f' + i);
+  if (ans === q.correct) {
+    btn.classList.add('correct');
+    fb.textContent = '\u2705 Correct! ' + q.msg;
+    fb.className = 'q-fb show ok';
+    score++;
+  } else {
+    btn.classList.add('wrong');
+    fb.textContent = '\u274C Not quite \u2014 the answer is "' + q.correct + '". ' + q.msg;
+    fb.className = 'q-fb show no';
+    var allBtns = od.querySelectorAll('.q-opt');
+    for (var k = 0; k < allBtns.length; k++) {
+      if (allBtns[k].textContent === q.correct) allBtns[k].classList.add('correct');
+    }
+  }
+  var allBtns2 = od.querySelectorAll('.q-opt');
+  for (var k = 0; k < allBtns2.length; k++) { allBtns2[k].style.pointerEvents = 'none'; }
+  var done = 0;
+  for (var k = 0; k < answered.length; k++) { if (answered[k]) done++; }
+  document.getElementById('qScore').textContent = 'Score: ' + score + ' / ' + done + ' answered';
+}
+
+document.getElementById('qReset').addEventListener('click', buildQuiz);
+buildQuiz();
+
+var PAIRS = [
+  { a:"3x\u00B2",       b:"\u22127x\u00B2",  id:"p1" },
+  { a:"5x",             b:"2x",               id:"p2" },
+  { a:"8",              b:"\u22123",           id:"p3" },
+  { a:"4y\u00B2",       b:"9y\u00B2",          id:"p4" },
+  { a:"\u2212x\u00B3",  b:"6x\u00B3",          id:"p5" },
+  { a:"2ab",            b:"\u22125ab",          id:"p6" }
+];
+
+var dSel = null;
+var dMatched = [];
+
+function buildDomino() {
+  dSel = null;
+  dMatched = [];
+  var g = document.getElementById('dominoGame');
+  g.innerHTML = '';
+
+  var left  = [];
+  var right = [];
+  for (var i = 0; i < PAIRS.length; i++) {
+    left.push({ term: PAIRS[i].a, id: PAIRS[i].id, side: 'L' });
+    right.push({ term: PAIRS[i].b, id: PAIRS[i].id, side: 'R' });
+  }
+  for (var i = right.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = right[i]; right[i] = right[j]; right[j] = tmp;
+  }
+
+  var grid = document.createElement('div');
+  grid.className = 'domino-grid';
+  g.appendChild(grid);
+
+  var h1 = document.createElement('div'); h1.className = 'd-head'; h1.textContent = 'Group A';
+  var hm = document.createElement('div'); hm.className = 'd-head';
+  var h2 = document.createElement('div'); h2.className = 'd-head'; h2.textContent = 'Group B';
+  grid.appendChild(h1); grid.appendChild(hm); grid.appendChild(h2);
+
+  for (var i = 0; i < left.length; i++) {
+    var ta  = mkTile(left[i]);
+    var arr = document.createElement('div');
+    arr.className = 'd-arrow';
+    arr.textContent = '\u2194';
+    var tb = mkTile(right[i]);
+    grid.appendChild(ta); grid.appendChild(arr); grid.appendChild(tb);
+  }
+
+  var sc = document.createElement('div');
+  sc.className = 'score-txt';
+  sc.id = 'dScore';
+  sc.textContent = 'Matched: 0 / ' + PAIRS.length;
+  g.appendChild(sc);
+
+  var rb = document.createElement('button');
+  rb.className = 'reset-btn';
+  rb.textContent = 'Reset Game';
+  rb.addEventListener('click', buildDomino);
+  g.appendChild(rb);
+}
+
+function mkTile(info) {
+  var t = document.createElement('div');
+  t.className = 'dtile';
+  t.textContent = info.term;
+  t.setAttribute('data-id', info.id);
+  t.setAttribute('data-side', info.side);
+  t.addEventListener('click', function() { clickTile(t); });
+  return t;
+}
+
+function clickTile(t) {
+  if (t.classList.contains('matched')) return;
+  if (!dSel) {
+    dSel = t;
+    t.classList.add('sel');
+    return;
+  }
+  if (dSel === t) {
+    t.classList.remove('sel');
+    dSel = null;
+    return;
+  }
+  var prev = dSel;
+  dSel = null;
+  prev.classList.remove('sel');
+
+  if (prev.getAttribute('data-id') === t.getAttribute('data-id') &&
+      prev.getAttribute('data-side') !== t.getAttribute('data-side')) {
+    prev.classList.add('matched');
+    t.classList.add('matched');
+    dMatched.push(prev.getAttribute('data-id'));
+    var el = document.getElementById('dScore');
+    var msg = 'Matched: ' + dMatched.length + ' / ' + PAIRS.length;
+    if (dMatched.length === PAIRS.length) msg += ' All done!';
+    if (el) el.textContent = msg;
+  } else {
+    prev.classList.add('bad');
+    t.classList.add('bad');
+    setTimeout(function() {
+      prev.classList.remove('bad');
+      t.classList.remove('bad');
+    }, 400);
+  }
+}
+
+buildDomino();
+
+function sendHeight() {
+  window.parent.postMessage({ type: 'resize', height: document.documentElement.scrollHeight }, '*');
+}
+window.addEventListener('load', function() { setTimeout(sendHeight, 250); });
+new MutationObserver(sendHeight).observe(document.body, { childList: true, subtree: true, attributes: true });
+</script>
+</body>
+</html>
