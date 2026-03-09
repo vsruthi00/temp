@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tutoringwithsruthi</title>
+<meta name="description" content="Interactive notes and practice for math topics by tutoringwithsruthi">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Dosis:wght@400;500;600;700&family=Bitter:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --white:  #FFFFFF;
+  --sage-l: #D0D6B3;
+  --sage:   #9BA06A;
+  --slate:  #525B76;
+  --forest: #143109;
+  --bg:     #f5f6ee;
+  --sage-m: #e4e8cc;
+  --fh: 'Young Serif', Georgia, serif;
+  --fp: 'Dosis', 'Trebuchet MS', Arial, sans-serif;
+  --fb: 'Bitter', Georgia, serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  font-family: var(--fp);
+  color: var(--forest);
+  padding: 20px 16px 52px;
+  overflow-x: hidden;
+}
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* HEADER */
+.pg-head {
+  background: var(--forest);
+  border-radius: 20px;
+  padding: 38px 32px;
+  text-align: center;
+}
+.pg-head h1 { font-family: var(--fh); font-size: 2.2rem; color: var(--sage-l); margin-bottom: 6px; }
+.pg-head p  { font-family: var(--fp); font-size: 1rem; color: rgba(208,214,179,0.7); }
+
+/* SUBJECT SECTION */
+.subject {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 24px 26px;
+  border: 2px solid var(--sage-l);
+  box-shadow: 0 2px 12px rgba(20,49,9,0.06);
+}
+.subject-title {
+  font-family: var(--fh);
+  font-size: 1.25rem;
+  color: var(--forest);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.subject-icon {
+  background: var(--forest);
+  color: var(--sage-l);
+  font-family: var(--fb);
+  font-size: 0.85rem;
+  font-weight: 700;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+/* TOPIC LINKS */
+.topic-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.topic-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  background: var(--bg);
+  border: 2px solid var(--sage-l);
+  border-radius: 13px;
+  text-decoration: none;
+  color: var(--forest);
+  transition: all 0.18s;
+}
+.topic-link:hover {
+  border-color: var(--slate);
+  box-shadow: 0 3px 10px rgba(20,49,9,0.1);
+  transform: translateY(-1px);
+}
+.topic-tag {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 20px;
+  font-family: var(--fb);
+  font-size: 0.75rem;
+  font-weight: 700;
+  background: var(--sage-m);
+  color: var(--forest);
+  border: 1.5px solid var(--sage);
+  flex-shrink: 0;
+}
+.topic-info {
+  flex: 1;
+}
+.topic-name {
+  font-family: var(--fh);
+  font-size: 1.05rem;
+  color: var(--forest);
+  margin-bottom: 2px;
+}
+.topic-desc {
+  font-family: var(--fp);
+  font-size: 0.84rem;
+  color: var(--slate);
+}
+.topic-arrow {
+  font-size: 1.1rem;
+  color: var(--sage);
+  flex-shrink: 0;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center; font-family: var(--fb); font-size: 0.74rem;
+  color: var(--sage); font-style: italic; margin-top: 6px;
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+<!-- HEADER -->
+<div class="pg-head">
+  <h1>tutoringwithsruthi</h1>
+  <p>Interactive notes &middot; Practice problems &middot; Formative homework</p>
+</div>
+
+<!-- ALGEBRA 1 -->
+<div class="subject">
+  <div class="subject-title">
+    <span class="subject-icon">x</span>
+    Algebra 1
+  </div>
+  <div class="topic-list">
+    <a class="topic-link" href="formative-hw-notes/algebra1/polynomial-add-subtract.html">
+      <span class="topic-tag">Notes</span>
+      <div class="topic-info">
+        <div class="topic-name">Polynomials &mdash; Adding &amp; Subtracting</div>
+        <div class="topic-desc">Naming, parts of a term, like terms, adding &amp; subtracting polynomials</div>
+      </div>
+      <span class="topic-arrow">&rarr;</span>
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">&copy; tutoringwithsruthi &middot; All materials for personal educational use only.</div>
+
+</div>
+</body>
+</html>
